@@ -15,6 +15,8 @@ public class RoomResponse {
     private RoomType type;
     private BigDecimal price;
     private Integer capacity;
+    private Integer numBathrooms;
+    private Integer numBedrooms;
     private RoomStatus status;
 
 }

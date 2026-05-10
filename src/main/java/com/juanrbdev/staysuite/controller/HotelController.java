@@ -20,4 +20,8 @@ public class HotelController {
     public Hotel createHotel(@RequestBody Hotel hotel) {
         return hotelService.crearHotel(hotel);
     }
+
+
+
+
 }

@@ -1,7 +1,9 @@
 package com.juanrbdev.staysuite;
 
 import com.juanrbdev.staysuite.emuns.RolEnum;
+import com.juanrbdev.staysuite.entity.Hotel;
 import com.juanrbdev.staysuite.entity.User;
+import com.juanrbdev.staysuite.repository.HotelRepository;
 import com.juanrbdev.staysuite.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,11 +19,10 @@ public class StaySuiteApplication {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository repo, PasswordEncoder encoder) {
+    CommandLineRunner init(UserRepository repo, PasswordEncoder encoder, HotelRepository repohotel) {
         return args -> {
 
             if (repo.findByEmail("admin@staysuite.com").isEmpty()) {
-
                 User admin = new User();
                 admin.setEmail("admin@staysuite.com");
                 admin.setUsername("admin");
@@ -32,12 +33,24 @@ public class StaySuiteApplication {
                 admin.setPhone("999999999");
                 admin.setRole(RolEnum.ADMIN);
                 admin.setState(true);
-
                 repo.save(admin);
-
                 System.out.println("✅ Admin creado");
             }
+
+            if(repohotel.findByName("Hotel Stay Suite").isEmpty()) {
+                Hotel hotel = new Hotel();
+                hotel.setName("Hotel Stay Suite");
+                hotel.setLocation("LIMA - PERU");
+                hotel.setDescription("EXPERIENCE LUXURY");
+                repohotel.save(hotel);
+
+                System.out.println("Hotel Stay Suite creado");
+            }
+
         };
     }
+
+
+
 
 }

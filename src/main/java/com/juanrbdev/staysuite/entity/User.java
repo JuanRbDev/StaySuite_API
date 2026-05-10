@@ -3,6 +3,8 @@ import com.juanrbdev.staysuite.emuns.RolEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,7 +44,7 @@ public class User extends BaseEntity {
 
     // RELATIONS //
 
-    @OneToMany(mappedBy = "user")
-    private List<Reservation> reservations;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 
 }

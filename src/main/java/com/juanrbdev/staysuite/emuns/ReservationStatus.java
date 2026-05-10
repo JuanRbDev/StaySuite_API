@@ -1,7 +1,8 @@
 package com.juanrbdev.staysuite.emuns;
 
 public enum ReservationStatus {
-    PENDING,
-    CONFIRMED,
-    CANCELLED
+    CONFIRMED, // Pagada o garantizada
+    PENDING,   // Esperando pago
+    CANCELLED, // El usuario la canceló
+    COMPLETED  // El huésped ya se fue (Check-out hecho)
 }

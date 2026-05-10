@@ -2,7 +2,9 @@ package com.juanrbdev.staysuite.entity;
 import com.juanrbdev.staysuite.emuns.RoomStatus;
 import com.juanrbdev.staysuite.emuns.RoomType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "rooms")
 public class Room extends BaseEntity {
 
@@ -26,6 +30,9 @@ public class Room extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    private String roomNumber;
+
     @Enumerated(EnumType.STRING)
     private RoomType type;
 
@@ -34,6 +41,12 @@ public class Room extends BaseEntity {
 
     @Column(nullable = false)
     private Integer capacity;
+
+    @Column(nullable = false)
+    private Integer numBedrooms;
+
+    @Column(nullable = false)
+    private Integer numBathrooms;
 
     @Enumerated(EnumType.STRING)
     private RoomStatus status;

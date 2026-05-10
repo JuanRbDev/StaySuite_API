@@ -1,5 +1,4 @@
 package com.juanrbdev.staysuite.security;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,17 +17,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtFilter; // 👈 INYECTAR
+    private final JwtAuthenticationFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(cors -> {})
-                .csrf(csrf -> csrf.disable()) // 🔥 clave para evitar 403
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/hotels").permitAll()
-                        .requestMatchers("/api/rooms/**").hasRole("ADMIN")
+                        .requestMatchers("/api/rooms/**").permitAll()
+                        .requestMatchers("/api/reservations/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
@@ -36,9 +37,7 @@ public class SecurityConfig {
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // 🔥 CLAVE
                 .formLogin(form -> form.disable())
-
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-
                 .build();
     }
 
